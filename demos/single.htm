@@ -17,8 +17,9 @@ $(function(){
 	$("select").multiselect({
 		multiple: true,
 		header: "Select an option",
-		noneSelectedText: "Select an Option",
-		selectedList: 1
+		noneSelectedText: "Select an Employee",
+		selectedList: 1,
+		hidecheckbox : true
 	});
 	
 });
@@ -29,19 +30,11 @@ $(function(){
 
 <h2>Single Select</h2>
 
-<pre class="prettyprint">
-$("select").multiselect({
-   multiple: false,
-   header: "Select an option",
-   noneSelectedText: "Select an Option",
-   selectedList: 1
-});
-</pre>
 
 <form>
 	<p>
 		<select name="demo">
-		<option value="option1">Option 1</option>
+		<option image="yourimage.jpg" value="option1">Option 1</option>
 		<option value="option2">Option 2</option>
 		<option value="option3">Option 3</option>
 		<option value="option4">Option 4</option>

@@ -42,13 +42,14 @@
       multiple: true,
       position: {},
       appendTo: "body",
-      useImages : false
+      useImages : false,
+      hidecheckbox : true
     },
 
     _create: function() {
       var el = this.element.hide();
       var o = this.options;
-
+      console.log(o);
       this.speed = $.fx.speeds._default; // default speed for effects
       this._isOpen = false; // assume no
 
@@ -173,8 +174,7 @@
 
         // create the label
         html += '<label for="' + inputID + '" title="' + title + '" class="' + labelClasses.join(' ') + '">';
-        html += '<input id="' + inputID + '" name="multiselect_' + id + '" type="' + (o.multiple ? "checkbox" : "radio") + '" value="' + value + '" title="' + title + '"';
-
+        html += '<input '+ ( o.hidecheckbox ? "style='display:none; '" : "" )  +' id="' + inputID + '" name="multiselect_' + id + '" type="' + (o.multiple ? "checkbox" : "radio") + '" value="' + value + '" title="' + title + '"';
         // pre-selected?
         if(isSelected) {
           html += ' checked="checked"';
@@ -193,7 +193,6 @@
             html += '<img src="'+image+'" class="multSelktrImg">';
         }
         html += description + '</span></label></li>';
-        
       });
 
       // insert into the DOM
@@ -224,19 +223,8 @@
       var numChecked = $checked.length;
       var value;
 
-      if(numChecked === 0) {
-        value = o.noneSelectedText;
-      } else {
-        if($.isFunction(o.selectedText)) {
-          value = o.selectedText.call(this, numChecked, $inputs.length, $checked.get());
-        } else if(/\d/.test(o.selectedList) && o.selectedList > 0 && numChecked <= o.selectedList) {
-          value = $checked.map(function() { return $(this).next().html(); }).get().join(', ');
-        } else {
-          value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
-        }
-      }
 
-      this._setButtonValue(value);
+      this._setButtonValue( o.noneSelectedText );
 
       return value;
     },
