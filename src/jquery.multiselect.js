@@ -148,7 +148,9 @@
         var liClasses = (isDisabled ? 'ui-multiselect-disabled ' : ' ') + this.className;
         var optLabel;
         var image = this.getAttribute("image");
-
+        var imageHeight = this.getAttribute("imageHeight");
+        
+  
         // is this an optgroup?
         if(parent.tagName === 'OPTGROUP') {
           optLabel = parent.getAttribute('label');
@@ -188,11 +190,17 @@
         }
 
         // add the title and close everything off
-        html += ' /><span>';
+        html += ' />';
         if (image != null) {
             html += '<img src="'+image+'" class="multSelktrImg">';
         }
-        html += description + '</span></label></li>';
+       
+        if( imageHeight !=null )
+        {
+        	var dynaHeight = imageHeight / 2 - 5;
+        	var outputStyle = "style='margin-top:"+ dynaHeight +"px;'"
+        }
+        html += '<span '+ outputStyle +'>' + description + '</span></label></li>';
       });
 
       // insert into the DOM
