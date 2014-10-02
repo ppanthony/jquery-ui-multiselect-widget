@@ -41,7 +41,8 @@
       autoOpen: false,
       multiple: true,
       position: {},
-      appendTo: "body"
+      appendTo: "body",
+      useImages : false
     },
 
     _create: function() {
@@ -145,6 +146,7 @@
         var labelClasses = [ 'ui-corner-all' ];
         var liClasses = (isDisabled ? 'ui-multiselect-disabled ' : ' ') + this.className;
         var optLabel;
+        var image = this.getAttribute("image");
 
         // is this an optgroup?
         if(parent.tagName === 'OPTGROUP') {
@@ -186,7 +188,12 @@
         }
 
         // add the title and close everything off
-        html += ' /><span>' + description + '</span></label></li>';
+        html += ' /><span>';
+        if (image != null) {
+            html += '<img src="'+image+'" class="multSelktrImg">';
+        }
+        html += title + '</span></label></li>';
+        
       });
 
       // insert into the DOM
