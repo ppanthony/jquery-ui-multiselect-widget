@@ -192,7 +192,7 @@
         if (image != null) {
             html += '<img src="'+image+'" class="multSelktrImg">';
         }
-        html += title + '</span></label></li>';
+        html += description + '</span></label></li>';
         
       });
 
