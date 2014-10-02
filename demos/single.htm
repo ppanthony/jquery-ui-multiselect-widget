@@ -11,14 +11,21 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../src/jquery.multiselect.js"></script>
 
+<style type="text/css">
+	body{ font-family:arial; font-size:12px;}
+</style>
 <script type="text/javascript">
 $(function(){
 
 	$("select").multiselect({
+		click: function(event, ui){
+			alert(ui.value + ' ' + (ui.checked ? 'checked' : 'unchecked') );
+		},
 		multiple: true,
 		noneSelectedText: "Select an Employee",
 		selectedList: 1,
 		hidecheckbox : true
+		
 	});
 	
 });

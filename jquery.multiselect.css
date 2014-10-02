@@ -24,3 +24,7 @@
 
 ul.ui-multiselect-checkboxes li img.multSelktrImg{ padding:5px;  }
 ul.ui-multiselect-checkboxes li span{ float:right; }
+
+ui-state-selected { 
+	background-color:#333333;
+}

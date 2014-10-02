@@ -309,7 +309,6 @@
       // optgroup label toggle support
       this.menu.delegate('li.ui-multiselect-optgroup-label a', 'click.multiselect', function(e) {
         e.preventDefault();
-
         var $this = $(this);
         var $inputs = $this.parent().nextUntil('li.ui-multiselect-optgroup-label').find('input:visible:not(:disabled)');
         var nodes = $inputs.get();
@@ -509,6 +508,7 @@
         .each(function() {
           if(!this.disabled && $.inArray(this.value, values) > -1) {
             self._toggleState('selected', flag).call(this);
+            this.toggleClass('onoff');
           }
         });
 
