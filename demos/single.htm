@@ -19,11 +19,30 @@ $(function(){
 
 	$("select").multiselect({
 		click: function(event, ui){
-			alert(ui.value + ' ' + (ui.checked ? 'checked' : 'unchecked') );
+			//remove all
+			//$('ul.ui-multiselect-checkboxes li label input').attr("checked", false);
+			//$('ul.ui-multiselect-checkboxes li label').removeClass('ui-state-active');
+			
+			$('#'+event.currentTarget.id).parent().toggleClass('ui-state-active');
+			
+			// check whether current target already selected?
+		
+			var checkboxes = $('#'+event.currentTarget.id);
+			//alert(checkboxes.prop("checked"));
+			//checkboxes.prop("checked", !checkboxes.prop("checked"));
+				
+			
+			console.log($('#'+event.currentTarget.id));
+			//alert(ui.value + ' ' + (ui.checked ? 'checked' : 'unchecked') );
 		},
 		multiple: true,
+		multipleToggle : true,
 		noneSelectedText: "Select an Employee",
-		selectedList: 1,
+		selectedText: function(numChecked, numTotal, checkedItems){
+			 console.log(checkedItems);
+			
+		     alert( numChecked + ' of ' + numTotal + ' checked' );
+		 },
 		hidecheckbox : true
 		
 	});

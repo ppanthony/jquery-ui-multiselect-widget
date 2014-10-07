@@ -43,13 +43,13 @@
       position: {},
       appendTo: "body",
       useImages : false,
-      hidecheckbox : true
+      hidecheckbox : true,
+      multipleToggle : false
     },
 
     _create: function() {
       var el = this.element.hide();
       var o = this.options;
-      console.log(o);
       this.speed = $.fx.speeds._default; // default speed for effects
       this._isOpen = false; // assume no
 
@@ -114,7 +114,7 @@
       if(this.options.header === false) {
         this.header.hide();
       }
-      if(!this.options.multiple) {
+      if(!this.options.multiple || this.options.multipleToggle) {
         this.headerLinkContainer.find('.ui-multiselect-all, .ui-multiselect-none').hide();
       }
       if(this.options.autoOpen) {
@@ -165,23 +165,14 @@
         if(isDisabled) {
           labelClasses.push('ui-state-disabled');
         }
-
-        // browsers automatically select the first option
-        // by default with single selects
-        if(isSelected && !o.multiple) {
-          labelClasses.push('ui-state-active');
-        }
-
+    
         html += '<li class="' + liClasses + '">';
 
         // create the label
         html += '<label for="' + inputID + '" title="' + title + '" class="' + labelClasses.join(' ') + '">';
         html += '<input '+ ( o.hidecheckbox ? "style='display:none; '" : "" )  +' id="' + inputID + '" name="multiselect_' + id + '" type="' + (o.multiple ? "checkbox" : "radio") + '" value="' + value + '" title="' + title + '"';
         // pre-selected?
-        if(isSelected) {
-          html += ' checked="checked"';
-          html += ' aria-selected="true"';
-        }
+       
 
         // disabled?
         if(isDisabled) {
@@ -206,6 +197,7 @@
       // insert into the DOM
       checkboxContainer.html(html);
 
+      
       // cache some moar useful elements
       this.labels = menu.find('label');
       this.inputs = this.labels.children('input');
@@ -229,10 +221,21 @@
       var $inputs = this.inputs;
       var $checked = $inputs.filter(':checked');
       var numChecked = $checked.length;
-      var value;
+      var value; 	
 
+      if(numChecked === 0) { 	
+    	   value = o.noneSelectedText; 	
+      } else {
+    	   if($.isFunction(o.selectedText)) { 	
+    		   value = o.selectedText.call(this, numChecked, $inputs.length, $checked.get()); 	
+    	   } else if(/\d/.test(o.selectedList) && o.selectedList > 0 && numChecked <= o.selectedList) { 	
+    		   value = $checked.map(function() { return $(this).next().html(); }).get().join(', '); 	
+    	   } else { 	
+    		   value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length); 	
+    	   } 	
+      }
 
-      this._setButtonValue( o.noneSelectedText );
+      this._setButtonValue( value );
 
       return value;
     },
