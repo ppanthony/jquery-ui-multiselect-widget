@@ -19,29 +19,27 @@ $(function(){
 
 	$("select").multiselect({
 		click: function(event, ui){
-			//remove all
-			//$('ul.ui-multiselect-checkboxes li label input').attr("checked", false);
-			//$('ul.ui-multiselect-checkboxes li label').removeClass('ui-state-active');
-			
-			$('#'+event.currentTarget.id).parent().toggleClass('ui-state-active');
-			
-			// check whether current target already selected?
-		
-			var checkboxes = $('#'+event.currentTarget.id);
-			//alert(checkboxes.prop("checked"));
-			//checkboxes.prop("checked", !checkboxes.prop("checked"));
+
+			$('ul.ui-multiselect-checkboxes li').each(function( index ){
 				
-			
-			console.log($('#'+event.currentTarget.id));
-			//alert(ui.value + ' ' + (ui.checked ? 'checked' : 'unchecked') );
+				
+				$clicked = $('#'+event.currentTarget.id).attr('id');
+				if(  $( this ).find('input').attr('id') ==  $clicked )
+				{
+					$( this ).find('label').toggleClass('ui-state-active');
+				}else{
+					$( this ).find('input').attr("checked", false);
+					$( this ).find('label').removeClass('ui-state-active');
+				}
+				
+			});
+
 		},
 		multiple: true,
 		multipleToggle : true,
 		noneSelectedText: "Select an Employee",
 		selectedText: function(numChecked, numTotal, checkedItems){
-			 console.log(checkedItems);
-			
-		     alert( numChecked + ' of ' + numTotal + ' checked' );
+			 $('button.ui-multiselect span:nth-child(2)').text($(checkedItems).attr('value'));
 		 },
 		hidecheckbox : true
 		
